@@ -1,0 +1,67 @@
+<?php
+
+namespace App\trait;
+
+use  Illuminate\Support\Facades\File;
+
+trait UploadImage
+{
+
+    /*
+    public function galleryAll(Request $request)
+    {
+        $images=array();
+        $i=0;
+        if($files=$request->file('editimage')){
+            //if file present
+            foreach($files as $file){
+            $image_name = 'gallery_' . time() . $i . $request->name;
+            $ext = strtolower($file->getClientOriginalExtension());
+            $image_full_name = $image_name . '.' . $ext;
+            $path = 'upload/image/';
+            $image_url = $path . $image_full_name;
+            $success = $file->move($path, $image_full_name);
+            $i++;
+            gallery::create(['pic' =>$image_url , 'data'=>'data', 'user_id'=>'1']);
+            }
+        }
+        return $images;
+    }*/
+
+    public function uploadImage($image, $name)
+    {
+        if ($image) {
+            $image_name = 'profile_' . time() . $name;
+            $ext = strtolower($image->getClientOriginalExtension());
+            $image_full_name = $image_name . '.' . $ext;
+            $path = 'upload/media/';
+            $image_url = $path . $image_full_name;
+            $success = $image->move($path, $image_full_name);
+            return $image_url;
+        }
+    }
+    public function updateImage($image, $name, $old)
+    {
+        /*if(File::exists(public_path($old))){
+        }else{
+            dd('File does not exists.');
+        }*/
+        if ($image != null) {
+            File::delete(public_path($old));
+            $image_name = 'profile_' . time() . $name;
+            $ext = strtolower($image->getClientOriginalExtension());
+            $image_full_name = $image_name . '.' . $ext;
+            $path = 'upload/media/';
+            $image_url = $path . $image_full_name;
+            $success = $image->move($path, $image_full_name);
+            return $image_url;
+        } else {
+            return $old;
+        }
+    }
+
+    public function deleteImge($image)
+    {
+        File::delete(public_path($image));
+    }
+}
