@@ -1,0 +1,10 @@
+
+        ->where(function($q){
+            foreach ([3] as  $value) {
+                  $q->whereHas('relation', function ($q) use($value) {
+
+                 $q->whereIn('table.id', [$value]);
+
+            });
+            }
+        })
