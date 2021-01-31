@@ -1,2 +1,0 @@
-# laravel-notes
-laravel notes
