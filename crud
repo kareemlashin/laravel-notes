@@ -1,0 +1,12 @@
+
+$user=crud::find($id);
+
+$user->delete();
+
+$d= $user->update([
+      'name'=>$r->name,
+      'image'=> $image_url,
+      'update_at'=>now()
+]);
+
+$x=crud::create(['name' => $r->name,'image' => $image_url,'create_at' => now(),'update_at' => now()]);
