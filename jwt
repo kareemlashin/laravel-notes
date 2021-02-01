@@ -1,0 +1,2 @@
+composer require tymon/jwt-auth --ignore-platform-reqs
+
