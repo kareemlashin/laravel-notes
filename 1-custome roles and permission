@@ -1,0 +1,53 @@
+Middleware
+------------------
+owner
+------
+    if (Auth::user()->role_id == 1)  {
+                return $next($request);
+        }else{
+            return redirect()->route('user');
+        }
+------------------------------------
+admin
+----- 
+
+if (Auth::user()->role_id  ==2 || Auth::user()->role_id  ==1)  {
+
+                return $next($request);
+}else{
+            return redirect()->route('user');
+}
+------------------------------------
+subAdmin
+-------- 
+
+        if (Auth::user()->role_id  !=4  )  {
+
+                return $next($request);
+
+        }else{
+                            return redirect()->route('user');
+
+        }   
+##########################################################################################
+Route::group(['middleware' => ['subAdmin']], function() {
+    Route::get('all', function () {
+        return " owner subAdmin admin";
+    });
+});
+
+Route::group(['middleware' => ['admin']], function() {
+        Route::get('all2', function () {
+        return "owner admin";
+    });
+});
+
+Route::group(['middleware' => ['owner']], function() {
+        Route::get('all3', function () {
+        return "owner";
+    });
+});
+
+ Route::get('user', function () {
+        return "user";
+    })->name('user');
