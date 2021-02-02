@@ -1,0 +1,23 @@
+custom role and permission
+1- create middle ware
+2-
+
+@foreach(config('global.permission') as $key => $value)
+          <div>  {{ $value }}</div>
+@endforeach
+3- config 
+
+-- create file genralpermission
+<?php
+return
+[
+    'permission'=>[
+    'user'=>'user',
+    'one'=>'one',
+    'two'=>'two',
+    'three'=>'three',
+    'four'=>'four',
+]];
+@if($User->datarole->name == 'user')
+  {{ $User->datarole->name }}
+@endif
