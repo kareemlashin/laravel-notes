@@ -4,3 +4,29 @@ getToken() {
   return token;
   }
 let headers = new Headers({ 'Content-Type': 'application/json', 'X-CSRF-TOKEN': this.getToken()});
+
+https://stackoverflow.com/questions/47468505/how-to-send-x-csrf-token-with-response-header-in-angular4
+https://stackoverflow.com/questions/50510998/angular-6-does-not-add-x-xsrf-token-header-to-http-request
+https://stackoverflow.com/questions/52342195/issue-in-adding-xsrf-token-in-an-angular-6
+https://angular.io/api/common/http/HttpClientXsrfModule
+https://stackoverflow.com/questions/51601219/django-to-angular-6-csrf-token-missing-or-incorrect-even-though-its-set-in-the
+
+
+https://github.com/angular/angular/issues/25996
+
+npm install ngx-cookie-service
+cookieService
+https://stackoverflow.com/questions/43364213/ng2-get-csrf-token-from-cookie-post-it-as-header
+https://github.com/angular/angular/issues/13313
+https://stackoverflow.com/questions/50532096/getting-and-inserting-the-value-of-a-csrf-cookie-set-by-django-in-angular/50532480
+
+https://stackoverflow.com/questions/49313179/how-to-get-csrftoken-in-vue-js
+https://stackoverflow.com/questions/39938284/how-to-pass-laravel-csrf-token-value-to-vue
+https://stackoverflow.com/questions/49789005/how-can-i-add-csrf-token-in-vue-or-reqwest
+https://stackoverflow.com/questions/41385930/missing-x-csrf-token-in-vue-headers
+https://stackoverflow.com/questions/41409893/csrf-token-in-vue-component
+https://forum.vuejs.org/t/csrf-token-in-vue-component/4518
+https://forum.vuejs.org/t/how-to-receive-csrf-token-in-vue-3/65451
+https://www.techalyst.com/posts/vuejs-axios-laravel-x-csrf-token-x-xsrf-token-csrf-protection
+
+Cookies.get('csrftoken')
