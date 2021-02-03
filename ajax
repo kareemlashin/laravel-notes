@@ -1,0 +1,77 @@
+
+    Route::group(['namespace' => 'App\Http\Controllers'], function() {
+
+    Route::post('addImage', 'image@add')->name('goadd');
+    Route::put('update/{id}', 'image@edit')->name('editImage');
+    Route::delete('delete/{id}', 'image@deleteImg')->name('imgdelete');
+
+}); 
+    <form method="POST" enctype="multipart/form-data">
+        <div>
+            <input type="file" name="image" id="image">
+        </div>
+        <button id="submit">submit</button>
+    </form>
+
+    <script src="{{ asset('js/jquery.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('form').on('submit', function(e) {
+
+                e.preventDefault();
+                let data = $("#image").val()
+
+            $.ajax({
+                type: 'post',
+                data: {
+                    "_token": '{{ csrf_token() }}',
+                    'image': data,
+                },
+                enctype:"multipart/form-data",
+                url: "{{ route('imgdelete',1) }}",
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+
+
+            $.ajax({
+                type: 'put',
+                data: {
+                    "_token": '{{ csrf_token() }}',
+                    'image': data,
+                },
+                enctype:"multipart/form-data",
+                url: "{{ route('imgdelete',1) }}",
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+
+
+            $.ajax({
+                type: 'delete',
+                data: {
+                    "_token": '{{ csrf_token() }}',
+                },
+                enctype:"multipart/form-data",
+                url: "{{ route('imgdelete',1) }}",
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+
+
+
+            });
+
+        });
+
+    </script>
