@@ -1,0 +1,91 @@
+
+            $('form').on('submit', function(e) {
+
+                e.preventDefault();
+                let data = $('#image').val();
+
+                var inputData = new FormData($('#POST')[0]);
+                console.log(inputData);
+
+                $.ajax({
+                    type: 'POST',
+                    enctype: 'multipart/form-data',
+                    url: "{{ route('goadd') }}",
+                    dataType: 'JSON',
+                    data: inputData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+
+let err=data.responseJSON;
+let msgdata=err.msg;
+$('#errors-data').text(msgdata);
+
+                    }
+                });
+            });
+
+
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
+
+class image extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+
+            'image' => 'required|array',
+            'image.*' => 'image|mimes:jpg,jpeg,png',
+            'dataradio' => 'required',
+            'data' => 'required|array',
+            'data.*' => 'required'];
+    }
+    public function messages()
+    {
+        return [
+            'image.required' => 'required image',
+            'image.array' => 'array image',
+            'image.*.image' => 'image is image',
+            'image.*.mimes' => 'image mimes:jpg,jpeg',
+            'dataradio.required' => 'required dataradio',
+            'data.required' => 'data array',
+            'data.array' => 'required data',
+            'data.*.required' => 'required '
+        ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json(
+                ['status' => false, 'msg' => $validator->errors()],
+                422
+            )
+        );
+    }
+}
