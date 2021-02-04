@@ -1,0 +1,160 @@
+Route::group(['namespace' => 'App\Http\Controllers'], function() {
+
+    Route::post('addImage', 'image@add')->name('goadd');
+    Route::put('update/{id}', 'image@edit')->name('editImage');
+    Route::delete('delete/{id}', 'image@deleteImg')->name('imgdelete');
+
+});
+
+
+public function add(Request $request)
+    {
+        $img = $request->image;
+
+        if ($request->file('image')) {
+            //if file present
+            $i=0;
+            $files=$request->image;
+            foreach($files as $file){
+            $image_name = 'gallery_' . time() . $i . $request->name;
+            $ext = strtolower($file->getClientOriginalExtension());
+            $image_full_name = $image_name . '.' . $ext;
+            $path = 'upload/image/';
+            $image_url = $path . $image_full_name;
+            $success = $file->move($path, $image_full_name);
+            $i++;
+            }
+        } else {
+            return ['success' => false, 'message' => 'File doesn\'t exist', 'request' => $request->image];
+        }
+                                return ['success' => true, 'message' => 'File exist', 'request' => $request->data ,'dataradio'=>$request->dataradio];
+
+    }
+
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_token" content="{{ csrf_token() }}" />
+
+    <title>Laravel</title>
+
+</head>
+
+<body class="antialiased">
+
+    <form method="POST" id="POST" enctype="multipart/form-data">
+        @csrf
+        <div>
+            <input type="file" name="image[]" multiple id="image">
+        </div>
+        <div>
+            <input type="checkbox" name="data[]" value="checkbox1" id="">
+            <input type="checkbox" name="data[]" value="checkbox2" id="">
+            <input type="checkbox" name="data[]" value="checkbox3" id="">
+            <input type="checkbox" name="data[]" value="checkbox4" id="">
+            <input type="checkbox" name="data[]" value="checkbox5" id="">
+        </div>
+         <div>
+            <input type="radio" name="dataradio" value="radio1" id="">
+            <input type="radio" name="dataradio" value="radio2" id="">
+        </div>
+        <button id="submit">submit</button>
+    </form>
+
+    <script src="{{ asset('js/jquery.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('form').on('submit', function(e) {
+
+                e.preventDefault();
+                let data = $('#image').val();
+
+                var inputData = new FormData($('#POST')[0]);
+                console.log(inputData);
+
+                $.ajax({
+                    type: 'POST',
+                    enctype: 'multipart/form-data',
+                    url: "{{ route('goadd') }}",
+                    dataType: 'JSON',
+                    data: inputData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+                
+                $.ajax({
+                    type: 'put',
+                    enctype: 'multipart/form-data',
+                    url: "{{ route('goadd') }}",
+                    dataType: 'JSON',
+                    data: inputData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+                
+                $.ajax({
+                    type: 'delete',
+                    enctype: 'multipart/form-data',
+                    url: "{{ route('goadd',1) }}",
+                    dataType: 'JSON',
+                    data: inputData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+                $.ajax({
+                    type: 'get',
+                    enctype: 'multipart/form-data',
+                    url: "{{ route('goadd',1) }}",
+                    dataType: 'JSON',
+                    data: inputData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+                
+                
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>
