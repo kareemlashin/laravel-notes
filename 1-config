@@ -1,0 +1,2 @@
+app=>provider
+use Illuminate\Support\Facades\Schema;
