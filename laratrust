@@ -35,3 +35,7 @@ $user->syncRolesWithoutDetaching([1]);
                         <p>This is visible to users with the given abilities. Gets translated to
                             \Laratrust::ability('admin,owner', 'create-post,edit-user')</p>
                         @endability
+                        @permission('users-read')
+                        <p>This is visible to users with the given abilities. Gets translated to
+                            \Laratrust::ability('admin,owner', 'create-post,edit-user')</p>
+                        @endability
