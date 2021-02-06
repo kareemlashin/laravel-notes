@@ -1,0 +1,5 @@
+https://github.com/Laravel-Lang/lang/tree/master/src/ar
+public function boot()
+    {
+        Schema::defaultStringLength(191);
+    }
