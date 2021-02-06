@@ -1,0 +1,31 @@
+composer require santigarcor/laratrust
+php artisan vendor:publish --tag="laratrust"
+php artisan config:clear
+php artisan laratrust:setup
+composer dump-autoload
+php artisan migrate
+
+seeder
+-----
+php artisan laratrust:seeder
+php artisan vendor:publish --tag="laratrust-seeder"
+-** config =>
+composer dump-autoload  laratrust_seeder  edit all
+
+In the database/seeds/DatabaseSeeder.php file you have to add this to the run method:
+
+$this->call(LaratrustSeeder::class);
+
+php artisan db:seed
+
+        'handling' => 'redirect',
+
+// add roles
+$user=User::find(9);
+$user->syncRolesWithoutDetaching([1]);
+// remove role
+                $user->detachRole(1);
+
+                        @role('owner')
+                        <p>This is visible to users with the admin role. Gets translated to</p>
+                        @endrole
