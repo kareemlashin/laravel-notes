@@ -94,4 +94,19 @@
         });
 
     </script>
+                    success: function(data) {
+                        $("#success").html('');
+                        $("#success").append(`<div class="alert alert-success" role="alert">
+                          ${data.message}
+                        </div>`);
+                    },
+                    error: function(error) {
+                        $(".error").html('');
+                        let err=error.responseJSON;
+                        let msgdata=err.msg;
+                        for (const prop in msgdata) {
+                            $("#error-"+prop).append(`<div class="alert alert-danger" role="alert">${msgdata[prop]}</div>`);
+                        }
+
+                    }
 
