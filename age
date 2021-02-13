@@ -1,0 +1,6 @@
+age  in database null 
+public function getAgeAttribute()
+    {
+        return Carbon::parse($this->attributes['birthday'])->age;
+    }
+    use Carbon\Carbon;
