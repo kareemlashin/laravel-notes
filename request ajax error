@@ -89,3 +89,4 @@ class image extends FormRequest
         );
     }
 }
+https://stackoverflow.com/questions/56438563/how-to-return-custom-response-when-validation-has-fails-using-laravel-form-reque
